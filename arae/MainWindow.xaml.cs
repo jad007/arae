@@ -23,5 +23,11 @@ namespace arae
         {
             InitializeComponent();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            DataContext = new FileSystemView();
+            Console.WriteLine("test");
+        }
     }
 }
