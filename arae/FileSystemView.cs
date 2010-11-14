@@ -14,6 +14,8 @@ namespace arae
 
         public List<Tag> ActiveTags { get; private set; }
 
+        public Object SelectedItem { get; private set; }
+
         public List<Specializer> Specializers { get; private set; }
 
         public FileSystemView()
@@ -32,6 +34,8 @@ namespace arae
             ActiveTags.Add(new Tag { Name = "tag1" });
             ActiveTags.Add(new Tag { Name = "tag2" });
             ActiveTags.Add(new Tag { Name = "tag3" });
+
+            SelectedItem = new Tag { Name = "SelectedFolder" };
         }
     }
 }
