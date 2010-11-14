@@ -2,6 +2,11 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded">
+    <Window.Resources>
+        <ItemsPanelTemplate x:Key="HorizontalTags">
+            <StackPanel Orientation="Horizontal" />
+            </ItemsPanelTemplate>
+    </Window.Resources>
     <Grid>
         <GridSplitter Height="276" HorizontalAlignment="Left" Margin="0,35,0,0" Name="gridSplitter1" VerticalAlignment="Top" Width="503" />
         <DockPanel Height="276" HorizontalAlignment="Left" Margin="0,35,0,0" Name="dockPanel1" VerticalAlignment="Top" Width="503">
@@ -28,5 +33,12 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </DockPanel>
+        <ListBox Height="37" ItemsSource="{Binding ActiveTags}" HorizontalAlignment="Left" Name="listBoxActiveTags" ItemsPanel="{StaticResource HorizontalTags}" VerticalAlignment="Top" Width="503">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Button Content="{Binding Name}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Window>
