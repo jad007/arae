@@ -9,11 +9,11 @@ namespace arae
     {
         public string Name { get; set; }
 
-        public List<Specializer> Tags { get; private set; }
+        public List<Tag> Tags { get; private set; }
 
         public TagGroup()
         {
-            Tags = new List<Specializer>();
+            Tags = new List<Tag>();
             Tags.Add(new Tag { Name = "test1" });
             Tags.Add(new Tag { Name = "test2" });
             Tags.Add(new Tag { Name = "test3" });
