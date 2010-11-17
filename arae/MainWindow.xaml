@@ -9,8 +9,8 @@
     </Window.Resources>
     <Grid>
         <GridSplitter Height="276" HorizontalAlignment="Left" Margin="0,35,0,0" Name="gridSplitter1" VerticalAlignment="Top" Width="503" />
-        <DockPanel Height="276" HorizontalAlignment="Left" Margin="0,35,0,0" Name="dockPanel1" VerticalAlignment="Top" Width="503">
-            <ListBox ItemsSource="{Binding Tags}" Name="listBoxTags" Width="128">
+        <DockPanel Margin="0,35,0,0" Name="dockPanel1">
+            <ListBox ItemsSource="{Binding SuggestedTags}" Name="listBoxTags" Width="128">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Expander Header="{Binding Name}">
@@ -26,12 +26,6 @@
                 </ListBox.ItemTemplate>
             </ListBox>
             <DockPanel Name="dockPanelFileView" VerticalAlignment="Stretch">
-                <Button DockPanel.Dock="Top" Height="50">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                            <Image Source="Folder.jpg" />
-                            <TextBlock Text="I don't really like this button set-up here.  But I guess it will work for now" Margin="2" TextWrapping="Wrap" MaxWidth="200" />
-                        </StackPanel>
-                </Button>
                 <ListBox ItemsSource="{Binding Files}" Name="listBoxFiles">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -41,7 +35,7 @@
                 </ListBox>
             </DockPanel>
         </DockPanel>
-        <ListBox Height="37" ItemsSource="{Binding ActiveTags}" HorizontalAlignment="Left" Name="listBoxActiveTags" ItemsPanel="{StaticResource HorizontalTags}" VerticalAlignment="Top" Width="503">
+        <ListBox Height="37" ItemsSource="{Binding ActiveTags}" Name="listBoxActiveTags" ItemsPanel="{StaticResource HorizontalTags}" VerticalAlignment="Top">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Button Content="{Binding Name}"/>
