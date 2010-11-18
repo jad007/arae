@@ -14,7 +14,7 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Expander Header="{Binding Name}">
-                            <ListBox ItemsSource="{Binding Tags}" Name="listBoxTags" Width="128" >
+                            <ListBox ItemsSource="{Binding Tags}" Name="listBoxTags">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Name}" />
@@ -26,10 +26,18 @@
                 </ListBox.ItemTemplate>
             </ListBox>
             <DockPanel Name="dockPanelFileView" VerticalAlignment="Stretch">
-                <ListBox ItemsSource="{Binding Files}" Name="listBoxFiles">
+                <ListBox ItemsSource="{Binding childDirectories}" Name="listBoxDirectories">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Name}" />
+                            <Expander Header="{Binding Name}">
+                                <ListBox ItemsSource="{Binding Files}" Name="listBoxFiles">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}" MouseRightButtonUp="TextBlock_MouseRightButtonUp" />
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </Expander>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
@@ -38,7 +46,7 @@
         <ListBox Height="37" ItemsSource="{Binding ActiveTags}" Name="listBoxActiveTags" ItemsPanel="{StaticResource HorizontalTags}" VerticalAlignment="Top">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Button Content="{Binding Name}"/>
+                        <Button Content="{Binding Name}"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
