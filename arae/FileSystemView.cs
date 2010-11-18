@@ -9,19 +9,14 @@ namespace arae
 {
     class FileSystemView
     {
-        public List<FileView> Files { get; private set; }
-
         public List<TagGroup> SuggestedTags { get; private set; }
 
         public List<Tag> ActiveTags { get; private set; }
 
+        public List<Directory> childDirectories { get; private set; }
+
         public FileSystemView()
         {
-            Files = new List<FileView>();
-            Files.Add(new FileView(new FileInfo("test1")));
-            Files.Add(new FileView(new FileInfo("test2")));
-            Files.Add(new FileView(new FileInfo("test3")));
-
             SuggestedTags = new List<TagGroup>();
             SuggestedTags.Add(new TagGroup { Name = "Time" });
             SuggestedTags.Add(new TagGroup { Name = "Favorites" });
@@ -35,6 +30,11 @@ namespace arae
             ActiveTags.Add(new Tag { Name = "tag3asdfgd" });
             ActiveTags.Add(new Tag { Name = "tag3" });
             ActiveTags.Add(new Tag { Name = "tag3hgdft5r" });
+
+            childDirectories = new List<Directory>();
+            childDirectories.Add(new Directory("directory1"));
+            childDirectories.Add(new Directory("directory2"));
+            childDirectories.Add(new Directory("directory3"));
         }
     }
 }

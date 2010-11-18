@@ -29,5 +29,10 @@ namespace arae
             DataContext = new FileSystemView();
             Console.WriteLine("test");
         }
+
+        private void TextBlock_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            //TODO: open a dialog box or something here
+        }
     }
 }
