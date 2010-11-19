@@ -1,4 +1,4 @@
-﻿<Window x:Class="arae.MainWindow"
+﻿<Window x:Class="Arae.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded">
@@ -33,7 +33,10 @@
                                 <ListBox ItemsSource="{Binding Files}" Name="listBoxFiles">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Name}" MouseRightButtonUp="TextBlock_MouseRightButtonUp" />
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{Binding Path=Icon}"/>
+                                                <TextBlock Text="{Binding Name}" MouseRightButtonUp="TextBlock_MouseRightButtonUp" />
+                                            </StackPanel>
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
                                 </ListBox>

@@ -5,7 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 
-namespace arae
+namespace Arae
 {
     /// <summary>
     /// Interaction logic for App.xaml
