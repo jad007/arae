@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace arae
+namespace Arae
 {
     [Serializable]
     class Tag : Specializer

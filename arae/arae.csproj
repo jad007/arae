@@ -8,7 +8,7 @@
     <ProjectGuid>{AE17B367-4670-452F-8DBA-5BAF663E2BD6}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>arae</RootNamespace>
+    <RootNamespace>Arae</RootNamespace>
     <AssemblyName>arae</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="FindIcon.cs" />
     <Compile Include="Directory.cs" />
     <Compile Include="Specializer.cs" />
     <Compile Include="Tag.cs" />

@@ -4,18 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Windows.Controls;
 using System.IO;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
-namespace arae
+namespace Arae
 {
     class FileView
     {
         public string Name { get; set; }
-        public Image Icon { get; set; }
+        public ImageSource Icon { get; set; }
 
         public FileView(FileInfo file)
         {
             Name = file.Name;
-            Icon = null;//fixme
+            Icon = FindIcon.IconFromExtension(".doc", FindIcon.SystemIconSize.Large);
         }
     }
 }
