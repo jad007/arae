@@ -19,5 +19,18 @@ namespace Arae
             Name = file.Name;
             Icon = FindIcon.IconFromExtension(".doc", FindIcon.SystemIconSize.Large);
         }
+
+        public override bool Equals(object obj)
+        {
+            var fv = obj as FileView;
+            if (fv == null)
+                return false;
+            return Name == fv.Name;
+        }
+
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode();
+        }
     }
 }

@@ -11,9 +11,40 @@ namespace Arae
     {
         public List<TagGroup> SuggestedTags { get; private set; }
 
-        public List<Tag> ActiveTags { get; private set; }
+        public List<Specializer> ActiveTags { get; private set; }
 
-        public List<Directory> childDirectories { get; private set; }
+        private string dir;
+
+        public bool Matches(string file)
+        {
+            if(!file.StartsWith(dir))
+                return false;
+            foreach (Specializer tag in ActiveTags)
+            {
+                var t = tag as Tag;
+                if (t != null && !t.Matches(file))
+                    return false;
+            }
+            return true;
+        }
+
+        private void ComputeFiles()
+        {
+            Files.Clear();
+            dir = "";
+            foreach (Specializer tag in ActiveTags)
+            {
+                if (tag is Directory)
+                    dir = Path.Combine(dir, tag.Name);
+            }
+            foreach (var file in new DirectoryInfo(dir).GetFiles())
+            {
+                if(Matches(file.FullName))
+                    Files.Add(new FileView(file));
+            }
+        }
+
+        public List<FileView> Files { get; private set; }
 
         public FileSystemView()
         {
@@ -22,19 +53,17 @@ namespace Arae
             SuggestedTags.Add(new TagGroup { Name = "Favorites" });
             SuggestedTags.Add(new TagGroup { Name = "Locations" });
 
-            ActiveTags = new List<Tag>();
-            ActiveTags.Add(new Tag { Name = "tag1" });
-            ActiveTags.Add(new Tag { Name = "tag2qweqw" });
-            ActiveTags.Add(new Tag { Name = "tag3" });
-            ActiveTags.Add(new Tag { Name = "tag3asdf" });
-            ActiveTags.Add(new Tag { Name = "tag3asdfgd" });
-            ActiveTags.Add(new Tag { Name = "tag3" });
-            ActiveTags.Add(new Tag { Name = "tag3hgdft5r" });
+            Tag t = new Tag { Name = "MyTag" };
+            t.Files.Add(@"C:\eula.1028.txt");
+            t.Files.Add(@"C:\eula.1031.txt");
 
-            childDirectories = new List<Directory>();
-            childDirectories.Add(new Directory("directory1"));
-            childDirectories.Add(new Directory("directory2"));
-            childDirectories.Add(new Directory("directory3"));
+            ActiveTags = new List<Specializer>();
+            ActiveTags.Add(new Directory { Name = @"C:\" });
+            ActiveTags.Add(t);
+
+            Files = new List<FileView>();
+
+            ComputeFiles();
         }
     }
 }

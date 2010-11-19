@@ -9,12 +9,16 @@ namespace Arae
     [Serializable]
     class Tag : Specializer
     {
-        public string Name { get; set; }
-        public HashSet<FileInfo> Files { get; private set; }
+        public HashSet<string> Files { get; private set; }
 
         public Tag()
         {
-            Files = new HashSet<FileInfo>();
+            Files = new HashSet<string>();
+        }
+
+        public bool Matches(string file)
+        {
+            return Files.Contains(file);
         }
     }
 }
