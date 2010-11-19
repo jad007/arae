@@ -26,21 +26,13 @@
                 </ListBox.ItemTemplate>
             </ListBox>
             <DockPanel Name="dockPanelFileView" VerticalAlignment="Stretch">
-                <ListBox ItemsSource="{Binding childDirectories}" Name="listBoxDirectories">
+                <ListBox ItemsSource="{Binding Files}" Name="listBoxDirectories">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Expander Header="{Binding Name}">
-                                <ListBox ItemsSource="{Binding Files}" Name="listBoxFiles">
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Image Source="{Binding Path=Icon}"/>
-                                                <TextBlock Text="{Binding Name}" MouseRightButtonUp="TextBlock_MouseRightButtonUp" />
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
-                            </Expander>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{Binding Path=Icon}"/>
+                                <TextBlock Text="{Binding Name}" MouseRightButtonUp="TextBlock_MouseRightButtonUp" />
+                            </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

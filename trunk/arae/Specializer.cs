@@ -7,5 +7,6 @@ namespace Arae
 {
     class Specializer
     {
+        public string Name { get; set; }
     }
 }
