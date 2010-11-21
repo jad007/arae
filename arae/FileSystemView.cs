@@ -59,7 +59,7 @@ namespace Arae
 
             ActiveTags = new List<Specializer>();
             ActiveTags.Add(new Directory { Name = @"C:\" });
-            ActiveTags.Add(t);
+            //ActiveTags.Add(t);
 
             Files = new List<FileView>();
 
