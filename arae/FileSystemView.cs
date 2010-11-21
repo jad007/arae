@@ -21,7 +21,7 @@ namespace Arae
                 return false;
             foreach (Specializer tag in ActiveTags)
             {
-                var t = tag as Tag;
+                var t = tag as TagView;
                 if (t != null && !t.Matches(file))
                     return false;
             }
@@ -34,8 +34,12 @@ namespace Arae
             dir = "";
             foreach (Specializer tag in ActiveTags)
             {
-                if (tag is Directory)
+                if (tag is DirectoryView)
                     dir = Path.Combine(dir, tag.Name);
+            }
+            foreach (var d in new DirectoryInfo(dir).GetDirectories())
+            {
+                Files.Add(new DirectoryView(d));
             }
             foreach (var file in new DirectoryInfo(dir).GetFiles())
             {
@@ -44,7 +48,7 @@ namespace Arae
             }
         }
 
-        public List<FileView> Files { get; private set; }
+        public List<Specializer> Files { get; private set; }
 
         public FileSystemView()
         {
@@ -53,15 +57,24 @@ namespace Arae
             SuggestedTags.Add(new TagGroup { Name = "Favorites" });
             SuggestedTags.Add(new TagGroup { Name = "Locations" });
 
-            Tag t = new Tag { Name = "MyTag" };
+            TagView t = new TagView { Name = "MyTag" };
             t.Files.Add(@"C:\eula.1028.txt");
             t.Files.Add(@"C:\eula.1031.txt");
 
             ActiveTags = new List<Specializer>();
-            ActiveTags.Add(new Directory { Name = @"C:\" });
+
+            try
+            {
+                ActiveTags.Add(new DirectoryView(@"C:\"));
+            }
+            catch (Exception e)
+            {
+                
+            }
             //ActiveTags.Add(t);
 
-            Files = new List<FileView>();
+            Files = new List<Specializer>();
+
 
             ComputeFiles();
         }

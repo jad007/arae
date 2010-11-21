@@ -7,11 +7,11 @@ using System.IO;
 namespace Arae
 {
     [Serializable]
-    class Tag : Specializer
+    class TagView : Specializer
     {
         public HashSet<string> Files { get; private set; }
 
-        public Tag()
+        public TagView()
         {
             Files = new HashSet<string>();
         }
