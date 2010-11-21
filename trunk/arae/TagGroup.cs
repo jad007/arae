@@ -9,16 +9,16 @@ namespace Arae
     {
         public string Name { get; set; }
 
-        public List<Tag> Tags { get; private set; }
+        public List<TagView> Tags { get; private set; }
 
         public TagGroup()
         {
-            Tags = new List<Tag>();
-            Tags.Add(new Tag { Name = "test1" });
-            Tags.Add(new Tag { Name = "test2" });
-            Tags.Add(new Tag { Name = "test3" });
-            Tags.Add(new Tag { Name = "test4" });
-            Tags.Add(new Tag { Name = "test5" });
+            Tags = new List<TagView>();
+            Tags.Add(new TagView { Name = "test1" });
+            Tags.Add(new TagView { Name = "test2" });
+            Tags.Add(new TagView { Name = "test3" });
+            Tags.Add(new TagView { Name = "test4" });
+            Tags.Add(new TagView { Name = "test5" });
         }
     }
 }

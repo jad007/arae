@@ -10,11 +10,8 @@ using System.Windows;
 
 namespace Arae
 {
-    class FileView
+    class FileView : Specializer
     {
-        public string Name { get; set; }
-        public ImageSource Icon { get; set; }
-
         private static Dictionary<string, ImageSource> cache = new Dictionary<string, ImageSource>();
 
         public FileView(FileInfo file)
