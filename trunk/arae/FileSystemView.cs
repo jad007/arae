@@ -13,6 +13,8 @@ namespace Arae
 
         public List<Specializer> ActiveTags { get; private set; }
 
+        
+
         private string dir;
 
         public bool Matches(string file)
@@ -48,6 +50,30 @@ namespace Arae
             }
         }
 
+        public void AddSpecializer(Specializer spec)
+        {
+            ActiveTags.Add(spec);
+            ComputeFiles();
+        }
+
+        public void RemoveSpecializer(Specializer spec)
+        {
+            if (spec is DirectoryView)
+            {
+                int i = ActiveTags.IndexOf(spec);
+                while (i < ActiveTags.Count)
+                {
+                    if (ActiveTags[i] is DirectoryView)
+                        ActiveTags.RemoveAt(i);
+                    else
+                        i++;
+                }
+            }
+            else
+                ActiveTags.Remove(spec);
+            ComputeFiles();
+        }
+
         public List<Specializer> Files { get; private set; }
 
         public FileSystemView()
@@ -63,14 +89,7 @@ namespace Arae
 
             ActiveTags = new List<Specializer>();
 
-            try
-            {
-                ActiveTags.Add(new DirectoryView(@"C:\"));
-            }
-            catch (Exception e)
-            {
-                
-            }
+            ActiveTags.Add(new DirectoryView(@"C:\"));
             //ActiveTags.Add(t);
 
             Files = new List<Specializer>();

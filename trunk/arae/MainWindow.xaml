@@ -6,6 +6,9 @@
         <ItemsPanelTemplate x:Key="HorizontalTags">
             <StackPanel Orientation="Horizontal" />
         </ItemsPanelTemplate>
+        <Style x:Key="itemstyle" TargetType="{x:Type ListBoxItem}">
+            <EventSetter Event="MouseDoubleClick" Handler="Item_DoubleClick" />
+        </Style>
     </Window.Resources>
     <Grid>
         <GridSplitter Height="276" HorizontalAlignment="Left" Margin="0,35,0,0" Name="gridSplitter1" VerticalAlignment="Top" Width="503" />
@@ -26,12 +29,12 @@
                 </ListBox.ItemTemplate>
             </ListBox>
             <DockPanel Name="dockPanelFileView" VerticalAlignment="Stretch">
-                <ListBox ItemsSource="{Binding Files}" Name="listBoxDirectories">
+                <ListBox ItemsSource="{Binding Files}" Name="listBoxDirectories" ItemContainerStyle="{StaticResource itemstyle}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal" >
                                 <Image Source="{Binding Path=Icon}"/>
-                                <TextBlock Text="{Binding Name}" MouseRightButtonUp="TextBlock_MouseRightButtonUp" />
+                                <TextBlock Text="{Binding Name}" MouseRightButtonUp="Item_RightClick" />
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -41,7 +44,7 @@
         <ListBox Height="37" ItemsSource="{Binding ActiveTags}" Name="listBoxActiveTags" ItemsPanel="{StaticResource HorizontalTags}" VerticalAlignment="Top">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                        <Button Content="{Binding Name}"/>
+                        <Button Content="{Binding Name}" Click="ActiveTag_Click"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
