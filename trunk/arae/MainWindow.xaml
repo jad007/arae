@@ -34,17 +34,28 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" >
                                 <Image Source="{Binding Path=Icon}"/>
-                                <TextBlock Text="{Binding Name}" MouseRightButtonUp="Item_RightClick" />
+                                <TextBlock Text="{Binding Name}" MouseRightButtonUp="Item_RightClick" >
+                                    <TextBlock.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Command=""> <!-- Should Use Routed Commands here! Your mom goes to college-->
+                                                <MenuItem.Icon>
+                                                    <Image Source="Tag.png" />
+                                                </MenuItem.Icon>
+                                            </MenuItem>
+                                        </ContextMenu>
+                                    </TextBlock.ContextMenu>
+                                </TextBlock>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
             </DockPanel>
         </DockPanel>
+
         <ListBox Height="37" ItemsSource="{Binding ActiveTags}" Name="listBoxActiveTags" ItemsPanel="{StaticResource HorizontalTags}" VerticalAlignment="Top">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                        <Button Content="{Binding Name}" Click="ActiveTag_Click"/>
+                    <Button Content="{Binding Name}" Click="ActiveTag_Click"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
