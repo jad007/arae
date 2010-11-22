@@ -27,12 +27,25 @@ namespace Arae
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             DataContext = new FileSystemView();
-            Console.WriteLine("test");
         }
 
-        private void TextBlock_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        private void Item_RightClick(object sender, MouseButtonEventArgs e)
         {
             //TODO: open a dialog box or something here
+        }
+
+        private void Item_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ((FileSystemView)DataContext).AddSpecializer((Specializer)((ListBoxItem)sender).DataContext);
+            listBoxDirectories.Items.Refresh();
+            listBoxActiveTags.Items.Refresh();
+        }
+
+        private void ActiveTag_Click(object sender, RoutedEventArgs e)
+        {
+            ((FileSystemView)DataContext).RemoveSpecializer((Specializer)((Button)sender).DataContext);
+            listBoxDirectories.Items.Refresh();
+            listBoxActiveTags.Items.Refresh();
         }
     }
 }
