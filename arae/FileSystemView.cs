@@ -47,16 +47,22 @@ namespace Arae
         {
             Files.Clear();
             dir = "";
+            Specializer nonDir = null;
             int count = 0;
+            const int maxCount = 100;
             foreach (Specializer tag in ActiveTags)
             {
                 if (tag is DirectoryView)
                     dir = Path.Combine(dir, tag.Name);
-                else if(tag is TagView)
-                    count++;
+                else if(tag is TagView && nonDir == null)
+                    nonDir = tag;
             }
-            if (count > 0)
+            IEnumerable<string> en;
+            IEnumerable<string> dn;
+            if (nonDir != null)
             {
+                en = ((TagView)nonDir).GetPossibleFiles();
+                dn = ((TagView)nonDir).ProbableDirectories;
             }
             else
             {
@@ -65,16 +71,28 @@ namespace Arae
                     if (t.ProbableDirectories.Contains(dir))
                         Files.Add(t);
                 }
+                en = FileSystem.AllFilesUnder(dir);
+                dn = FileSystem.AllDirectoriesUnder(dir);
             }
-            foreach (var d in new DirectoryInfo(dir).GetDirectories())
+            foreach (var d in dn)
             {
-                if(MatchesDirectory(d.FullName))
+                if(MatchesDirectory(d))
                     Files.Add(new DirectoryView(d));
+                if (++count >= maxCount)
+                {
+                    break;
+                }
             }
-            foreach (var file in new DirectoryInfo(dir).GetFiles())
+            count = 0;
+            foreach (var file in en)
             {
-                if(Matches(file.FullName))
+                if(Matches(file))
                     Files.Add(new FileView(file));
+                if (++count >= maxCount)
+                {
+                    break;
+                }
+
             }
         }
 
@@ -117,15 +135,28 @@ namespace Arae
             t.AddFile(@"C:\DOCS\UserGuide.ico");
             AllTags.Add(t);
 
+            TagView docs = new TagView { Name = "Documents" };
+            docs.AddDirectory(@"C:\Users\Joshua\Documents");
+            AllTags.Add(docs);
+
             ActiveTags = new List<Specializer>();
 
-            ActiveTags.Add(new DirectoryView(@"C:\"));
+            //ActiveTags.Add(new DirectoryView(@"C:\"));
             //ActiveTags.Add(t);
+            ActiveTags.Add(docs);
 
             Files = new List<Specializer>();
 
 
-            ComputeFiles();
+            try
+            {
+                ComputeFiles();
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
         }
     }
 }

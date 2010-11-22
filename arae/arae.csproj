@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="FileSystem.cs" />
     <Compile Include="FindIcon.cs" />
     <Compile Include="DirectoryView.cs" />
     <Compile Include="Specializer.cs" />

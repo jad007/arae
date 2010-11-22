@@ -33,6 +33,11 @@ namespace Arae
         public void AddFile(string file)
         {
             Files.Add(file);
+            AddPatentProbableDirs(file);
+        }
+
+        private void AddPatentProbableDirs(string file)
+        {
             file = Path.GetDirectoryName(file);
             while (!String.IsNullOrEmpty(file))
             {
@@ -41,9 +46,26 @@ namespace Arae
             }
         }
 
+        public void AddDirectory(string dir)
+        {
+            Directories.Add(dir);
+            AddPatentProbableDirs(dir);
+        }
+
         public bool Matches(string file)
         {
-            return Files.Contains(file);
+            return Files.Contains(file) || Directories.Contains(Path.GetDirectoryName(file));
+        }
+
+        public IEnumerable<string> GetPossibleFiles()
+        {
+            foreach (var f in Files)
+                yield return f;
+            foreach (var d in Directories)
+            {
+                foreach (var dd in FileSystem.AllFilesUnder(d))
+                    yield return dd;
+            }
         }
     }
 }
