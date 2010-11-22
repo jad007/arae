@@ -14,10 +14,10 @@ namespace Arae
     {
         private static Dictionary<string, ImageSource> cache = new Dictionary<string, ImageSource>();
 
-        public FileView(FileInfo file)
+        public FileView(string file)
         {
-            Name = file.Name;
-            Icon = GetIcon(file.Extension);
+            Name = file;
+            Icon = GetIcon(Path.GetExtension(file));
         }
 
         private static ImageSource GetIcon(string ext)

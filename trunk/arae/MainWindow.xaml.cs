@@ -37,9 +37,12 @@ namespace Arae
 
         private void Item_DoubleClick(object sender, MouseButtonEventArgs e)
         {
-            ((FileSystemView)DataContext).AddSpecializer((Specializer)((ListBoxItem)sender).DataContext);
-            listBoxDirectories.Items.Refresh();
-            listBoxActiveTags.Items.Refresh();
+            if (!(((ListBoxItem)sender).DataContext is FileView))
+            {
+                ((FileSystemView)DataContext).AddSpecializer((Specializer)((ListBoxItem)sender).DataContext);
+                listBoxDirectories.Items.Refresh();
+                listBoxActiveTags.Items.Refresh();
+            }
         }
 
         private void ActiveTag_Click(object sender, RoutedEventArgs e)
