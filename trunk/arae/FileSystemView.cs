@@ -11,9 +11,9 @@ namespace Arae
     {
         public List<TagGroup> SuggestedTags { get; private set; }
 
-        public List<Specializer> ActiveTags { get; private set; }
+        public List<TagView> AllTags { get; private set; }
 
-        
+        public List<Specializer> ActiveTags { get; private set; }        
 
         private string dir;
 
@@ -30,18 +30,46 @@ namespace Arae
             return true;
         }
 
+        public bool MatchesDirectory(string d)
+        {
+            if (!d.StartsWith(dir))
+                return false;
+            foreach (Specializer tag in ActiveTags)
+            {
+                var t = tag as TagView;
+                if (t != null && !t.ProbableDirectories.Contains(d))
+                    return false;
+            }
+            return true;
+        }
+
         private void ComputeFiles()
         {
             Files.Clear();
             dir = "";
+            int count = 0;
             foreach (Specializer tag in ActiveTags)
             {
                 if (tag is DirectoryView)
                     dir = Path.Combine(dir, tag.Name);
+                else if(tag is TagView)
+                    count++;
+            }
+            if (count > 0)
+            {
+            }
+            else
+            {
+                foreach (var t in AllTags)
+                {
+                    if (t.ProbableDirectories.Contains(dir))
+                        Files.Add(t);
+                }
             }
             foreach (var d in new DirectoryInfo(dir).GetDirectories())
             {
-                Files.Add(new DirectoryView(d));
+                if(MatchesDirectory(d.FullName))
+                    Files.Add(new DirectoryView(d));
             }
             foreach (var file in new DirectoryInfo(dir).GetFiles())
             {
@@ -83,9 +111,11 @@ namespace Arae
             SuggestedTags.Add(new TagGroup { Name = "Favorites" });
             SuggestedTags.Add(new TagGroup { Name = "Locations" });
 
+            AllTags = new List<TagView>();
             TagView t = new TagView { Name = "MyTag" };
-            t.Files.Add(@"C:\eula.1028.txt");
-            t.Files.Add(@"C:\eula.1031.txt");
+            t.AddFile(@"C:\eula.1028.txt");
+            t.AddFile(@"C:\eula.1031.txt");
+            AllTags.Add(t);
 
             ActiveTags = new List<Specializer>();
 
