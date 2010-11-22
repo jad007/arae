@@ -113,8 +113,8 @@ namespace Arae
 
             AllTags = new List<TagView>();
             TagView t = new TagView { Name = "MyTag" };
-            t.AddFile(@"C:\eula.1028.txt");
-            t.AddFile(@"C:\eula.1031.txt");
+            t.AddFile(@"C:\DOCS\userguide.pdf");
+            t.AddFile(@"C:\DOCS\UserGuide.ico");
             AllTags.Add(t);
 
             ActiveTags = new List<Specializer>();

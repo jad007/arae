@@ -32,6 +32,7 @@ namespace Arae
         private void Item_RightClick(object sender, MouseButtonEventArgs e)
         {
             //TODO: open a dialog box or something here
+
         }
 
         private void Item_DoubleClick(object sender, MouseButtonEventArgs e)
