@@ -136,7 +136,7 @@ namespace Arae
             AllTags.Add(t);
 
             TagView docs = new TagView { Name = "Documents" };
-            docs.AddDirectory(@"C:\Users\Joshua\Documents");
+            docs.AddDirectory(@"C:\Users\Joe\Documents");
             AllTags.Add(docs);
 
             ActiveTags = new List<Specializer>();
