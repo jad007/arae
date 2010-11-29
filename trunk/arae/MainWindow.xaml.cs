@@ -19,6 +19,8 @@ namespace Arae
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static RoutedCommand CustomRoutedCommand = new RoutedCommand();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -34,6 +36,29 @@ namespace Arae
             //TODO: open a dialog box or something here
 
         }
+
+        private void ExecutedCustomCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            var newWindow = new AddTagWindow();
+            newWindow.Show();
+            MessageBox.Show("Custom Command Executed");
+        }
+
+        private void CanExecuteCustomCommand(object sender, CanExecuteRoutedEventArgs e)
+        {
+            Control target = e.Source as Control;
+
+            if (target != null)
+            {
+                e.CanExecute = true;
+            }
+            else
+            {
+                e.CanExecute = false;
+            }
+        }
+
+
 
         private void Item_DoubleClick(object sender, MouseButtonEventArgs e)
         {
