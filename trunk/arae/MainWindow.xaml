@@ -16,6 +16,7 @@
                     Executed="ExecutedCustomCommand"
                     CanExecute="CanExecuteCustomCommand" />
     </Window.CommandBindings>
+
     <Grid>
         <GridSplitter Height="276" HorizontalAlignment="Left" Margin="0,35,0,0" Name="gridSplitter1" VerticalAlignment="Top" Width="503" />
         <DockPanel Margin="0,35,0,0" Name="dockPanel1">
@@ -40,20 +41,20 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" >
                                 <Image Source="{Binding Path=Icon}"/>
-                                <TextBlock Text="{Binding Name}" MouseRightButtonUp="Item_RightClick" >
-                                    <TextBlock.ContextMenu>
-                                        <ContextMenu>
-                                            <MenuItem Header="Tag" Command="{x:Static custom:MainWindow.CustomRoutedCommand}"> 
-                                                <MenuItem.Icon>
-                                                    <Image Source="Tag.png" />
-                                                </MenuItem.Icon>
-                                            </MenuItem>
-                                        </ContextMenu>
-                                    </TextBlock.ContextMenu>
+                                <TextBlock Text="{Binding Name}" >
                                 </TextBlock>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
+                    <ListBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Tag" Command="{x:Static custom:MainWindow.CustomRoutedCommand}">
+                                <MenuItem.Icon>
+                                    <Image Source="Tag.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ListBox.ContextMenu>
                 </ListBox>
             </DockPanel>
         </DockPanel>

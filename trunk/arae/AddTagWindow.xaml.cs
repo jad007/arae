@@ -18,9 +18,25 @@ namespace Arae
     /// </summary>
     public partial class AddTagWindow : Window
     {
-        public AddTagWindow()
+        private string SelectedPathItem;
+        
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            DataContext = new AddTagView(SelectedPathItem);
+        }
+
+        public AddTagWindow(string InputSelectedPath)
+        {
+            SelectedPathItem = InputSelectedPath;
             InitializeComponent();
+        }
+
+        private void textBlock1_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (((TextBox)sender).Text == "Enter New Tag")
+            {
+                ((TextBox)sender).Text = "";
+            }
         }
     }
 }

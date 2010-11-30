@@ -31,17 +31,22 @@ namespace Arae
             DataContext = new FileSystemView();
         }
 
-        private void Item_RightClick(object sender, MouseButtonEventArgs e)
-        {
-            //TODO: open a dialog box or something here
 
-        }
 
         private void ExecutedCustomCommand(object sender, ExecutedRoutedEventArgs e)
         {
-            var newWindow = new AddTagWindow();
-            newWindow.Show();
-            MessageBox.Show("Custom Command Executed");
+            if (((MainWindow)sender).listBoxDirectories.SelectedItem is FileView)
+            {
+                var newWindow = new AddTagWindow(((FileView)((MainWindow)sender).listBoxDirectories.SelectedItem).Name);
+                newWindow.Show();
+            }
+            else if (((MainWindow)sender).listBoxDirectories.SelectedItem is DirectoryView)
+            {
+                var newWindow = new AddTagWindow(((DirectoryView)((MainWindow)sender).listBoxDirectories.SelectedItem).Name);
+                newWindow.Show();
+            }
+
+            // MessageBox.Show("Custom Command Executed");
         }
 
         private void CanExecuteCustomCommand(object sender, CanExecuteRoutedEventArgs e)
