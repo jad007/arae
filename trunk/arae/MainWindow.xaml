@@ -61,7 +61,8 @@
         <ListBox Height="37" ItemsSource="{Binding ActiveTags}" Name="listBoxActiveTags" ItemsPanel="{StaticResource HorizontalTags}" VerticalAlignment="Top">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Button Content="{Binding Name}" Click="ActiveTag_Click"/>
+                    <Button Content="{Binding Name}" Click="ActiveTag_Click">
+                    </Button>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
