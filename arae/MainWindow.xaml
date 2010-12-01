@@ -20,18 +20,18 @@
     <Grid>
         <GridSplitter Height="276" HorizontalAlignment="Left" Margin="0,35,0,0" Name="gridSplitter1" VerticalAlignment="Top" Width="503" />
         <DockPanel Margin="0,35,0,0" Name="dockPanel1">
-            <ListBox ItemsSource="{Binding SuggestedTags}" Name="listBoxTags" Width="128">
+            <ListBox ItemsSource="{Binding SuggestedTags}" Name="listBoxTags" ItemContainerStyle="{StaticResource itemstyle}" Width="128">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Expander Header="{Binding Name}">
+                        <!--<Expander Header="{Binding Name}">
                             <ListBox ItemsSource="{Binding Tags}" Name="listBoxTags">
                                 <ListBox.ItemTemplate>
-                                    <DataTemplate>
+                                    <DataTemplate>-->
                                         <TextBlock Text="{Binding Name}" />
-                                    </DataTemplate>
+                                    <!--</DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                        </Expander>
+                        </Expander>-->
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
