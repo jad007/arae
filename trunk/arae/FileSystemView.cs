@@ -9,7 +9,7 @@ namespace Arae
 {
     class FileSystemView
     {
-        public List<TagGroup> SuggestedTags { get; private set; }
+        public List<Specializer> SuggestedTags { get; private set; }
 
         public List<TagView> AllTags { get; private set; }
 
@@ -98,7 +98,7 @@ namespace Arae
 
         public void AddSpecializer(Specializer spec)
         {
-            ActiveTags.Add(spec);
+            AddActiveTag(spec);
             ComputeFiles();
         }
 
@@ -111,7 +111,10 @@ namespace Arae
                 while (i < ActiveTags.Count)
                 {
                     if (ActiveTags[i] is DirectoryView)
+                    {
                         directories.Add((DirectoryView)ActiveTags[i]);
+                        i++;
+                    }
                     else
                         i++;
                 }
@@ -127,40 +130,54 @@ namespace Arae
                 while (i < ActiveTags.Count)
                 {
                     if (ActiveTags[i] is DirectoryView)
-                       ActiveTags.RemoveAt(i);
+                       RemoveActiveTag(ActiveTags[i]);
                     else
                         i++;
                 }
             }
             else
-                ActiveTags.Remove(spec);
+                RemoveActiveTag(spec);
             ComputeFiles();
         }
 
         public List<Specializer> Files { get; private set; }
 
+        private void AddActiveTag(Specializer newActiveTag)
+        {
+            SuggestedTags.Remove(newActiveTag);
+            ActiveTags.Add(newActiveTag);
+        }
+
+        private void RemoveActiveTag(Specializer ThisActiveTag)
+        {
+            ActiveTags.Remove(ThisActiveTag);
+            SuggestedTags.Add(ThisActiveTag);
+        }
+
         public FileSystemView()
         {
-            SuggestedTags = new List<TagGroup>();
-            SuggestedTags.Add(new TagGroup { Name = "Time" });
-            SuggestedTags.Add(new TagGroup { Name = "Favorites" });
-            SuggestedTags.Add(new TagGroup { Name = "Locations" });
+            SuggestedTags = new List<Specializer>();
+            //SuggestedTags.Add(new TagGroup { Name = "Time" });
+            //SuggestedTags.Add(new TagGroup { Name = "Favorites" });
+            //SuggestedTags.Add(new TagGroup { Name = "Locations" });
 
             AllTags = new List<TagView>();
             TagView t = new TagView { Name = "MyTag" };
             t.AddFile(@"C:\DOCS\userguide.pdf");
             t.AddFile(@"C:\DOCS\UserGuide.ico");
             AllTags.Add(t);
+            SuggestedTags.Add(t);
 
             TagView docs = new TagView { Name = "Documents" };
             docs.AddDirectory(@"C:\Users\"+System.Environment.UserName+@"\Documents");
             AllTags.Add(docs);
+            SuggestedTags.Add(docs);
 
             ActiveTags = new List<Specializer>();
 
             //ActiveTags.Add(new DirectoryView(@"C:\"));
             //ActiveTags.Add(t);
-            ActiveTags.Add(docs);
+            AddActiveTag(docs);
 
             Files = new List<Specializer>();
 

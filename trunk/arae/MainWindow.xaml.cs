@@ -80,6 +80,7 @@ namespace Arae
             ((FileSystemView)DataContext).RemoveSpecializer((Specializer)((Button)sender).DataContext);
             listBoxDirectories.Items.Refresh();
             listBoxActiveTags.Items.Refresh();
+            listBoxTags.Items.Refresh();
         }
 
         private void ActiveTags_MouseEnter(object sender, RoutedEventArgs e)
