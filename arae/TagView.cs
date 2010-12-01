@@ -9,7 +9,7 @@ using System.Windows.Media;
 namespace Arae
 {
     [Serializable]
-    class TagView : Specializer
+    public class TagView : Specializer
     {
         private static ImageSource image = new BitmapImage(new Uri("pack://application:,,,/Tag.png"));
 

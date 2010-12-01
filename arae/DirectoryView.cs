@@ -8,7 +8,7 @@ using System.Windows.Media.Imaging;
 
 namespace Arae
 {
-    class DirectoryView : Specializer
+    public class DirectoryView : Specializer
     {
         private static ImageSource image = new BitmapImage(new Uri("pack://application:,,,/Folder.png"));
 

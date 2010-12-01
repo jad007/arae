@@ -1,12 +1,19 @@
 ﻿<Window x:Class="Arae.AddTagWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Add Tag" Height="300" Width="202" Loaded="Window_Loaded">
-    <Grid>
+        Title="Add Tag" Height="337" Width="202" Loaded="Window_Loaded">
+    <Grid Height="298">
         <Label Content="{Binding SelectedPath}" Height="25" HorizontalAlignment="Stretch" Margin="12,12,12,0" Name="label1" VerticalAlignment="Top" />
-        <Button Content="Add New Tag" Height="25" HorizontalAlignment="Left" Margin="12,79,0,0" Name="button1" VerticalAlignment="Top" Width="120" />
-        <TextBox Height="25" HorizontalAlignment="Left" Margin="12,48,0,0" Name="textBlock1" Text="Enter New Tag" VerticalAlignment="Top" Width="156" GotFocus="textBlock1_GotFocus" />
-        <ListBox Height="100" HorizontalAlignment="Left" Margin="12,118,0,0" Name="listBox1" VerticalAlignment="Top" Width="156" />
-        <Button Content="Add Existing Tags" Height="25" HorizontalAlignment="Left" Margin="12,224,0,0" Name="button2" VerticalAlignment="Top" Width="120" />
+        <Button Content="Add New Tag" Height="25" HorizontalAlignment="Left" Margin="12,79,0,0" Name="buttonNewTag" VerticalAlignment="Top" Width="120" Click="buttonNewTag_Click" />
+        <TextBox Height="25" HorizontalAlignment="Left" Margin="12,48,0,0" Name="textBlockNewTag" Text="Enter New Tag" VerticalAlignment="Top" Width="156" GotFocus="textBlockNewTag_GotFocus" />
+        <ListBox ItemsSource="{Binding AllTags}"  Height="100" HorizontalAlignment="Left" Margin="12,118,0,0" Name="listBoxExistingTags" VerticalAlignment="Top" Width="156">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button Content="Add Existing Tags" Height="25" HorizontalAlignment="Left" Margin="12,224,0,0" Name="buttonExistingTag" VerticalAlignment="Top" Width="120" Click="buttonExistingTag_Click" />
+        <Button Content="Done" Height="25" HorizontalAlignment="Left" Margin="12,263,0,0" Name="buttonDone" VerticalAlignment="Top" Width="120" Click="buttonDone_Click" />
     </Grid>
 </Window>
