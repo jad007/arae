@@ -7,11 +7,35 @@ using System.Xml.Serialization;
 
 namespace Arae
 {
-    class FileSystemView
+    public class FileSystemView
     {
         public List<Specializer> SuggestedTags { get; private set; }
 
-        public List<TagView> AllTags { get; private set; }
+        public List<TagView> AllTags;
+
+        public List<TagView> getAllTags()
+        {
+            return AllTags;
+        }
+
+        public void AddExistingTag(Specializer InTag, string SelectedPath)
+        {
+            foreach (Specializer spec in AllTags)
+            {
+                if (InTag == spec)
+                {
+                    ((TagView)spec).AddFile(SelectedPath);
+                }
+            }
+        }
+
+        public void AddNewTag(string InNewTagName, string SelectedPath)
+        {
+            TagView newTag = new TagView { Name = InNewTagName };
+            newTag.AddFile(SelectedPath);
+            AllTags.Add(newTag);
+            SuggestedTags.Add(newTag);
+        }
 
         public List<Specializer> ActiveTags { get; private set; }
 
@@ -151,7 +175,10 @@ namespace Arae
         private void RemoveActiveTag(Specializer ThisActiveTag)
         {
             ActiveTags.Remove(ThisActiveTag);
-            SuggestedTags.Add(ThisActiveTag);
+            if (ThisActiveTag is TagView)
+            {
+                SuggestedTags.Add(ThisActiveTag);
+            }
         }
 
         public FileSystemView()
@@ -162,22 +189,22 @@ namespace Arae
             //SuggestedTags.Add(new TagGroup { Name = "Locations" });
 
             AllTags = new List<TagView>();
-            TagView t = new TagView { Name = "MyTag" };
+            /*TagView t = new TagView { Name = "MyTag" };
             t.AddFile(@"C:\DOCS\userguide.pdf");
             t.AddFile(@"C:\DOCS\UserGuide.ico");
             AllTags.Add(t);
             SuggestedTags.Add(t);
 
-            TagView docs = new TagView { Name = "Documents" };
-            docs.AddDirectory(@"C:\Users\"+System.Environment.UserName+@"\Documents");
-            AllTags.Add(docs);
-            SuggestedTags.Add(docs);
+            TagView root = new TagView { Name = "Root Directory" };
+            root.AddDirectory(@"C:\");
+            AllTags.Add(root);
+            SuggestedTags.Add(root);*/
 
             ActiveTags = new List<Specializer>();
 
-            //ActiveTags.Add(new DirectoryView(@"C:\"));
+            ActiveTags.Add(new DirectoryView(@"C:\"));
             //ActiveTags.Add(t);
-            AddActiveTag(docs);
+            //AddActiveTag(root);
 
             Files = new List<Specializer>();
 

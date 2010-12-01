@@ -6,7 +6,7 @@ using System.Windows.Media;
 
 namespace Arae
 {
-    class Specializer
+    public class Specializer
     {
         public string Name { get; set; }
         public Brush Color { get; set; }

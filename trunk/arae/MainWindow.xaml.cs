@@ -37,16 +37,16 @@ namespace Arae
         {
             if (((MainWindow)sender).listBoxDirectories.SelectedItem is FileView)
             {
-                var newWindow = new AddTagWindow(((FileView)((MainWindow)sender).listBoxDirectories.SelectedItem).Name);
-                newWindow.Show();
+                var newWindow = new AddTagWindow(((FileView)((MainWindow)sender).listBoxDirectories.SelectedItem).Name, ((FileSystemView)DataContext));
+                newWindow.ShowDialog();
+                listBoxTags.Items.Refresh();
             }
             else if (((MainWindow)sender).listBoxDirectories.SelectedItem is DirectoryView)
             {
-                var newWindow = new AddTagWindow(((DirectoryView)((MainWindow)sender).listBoxDirectories.SelectedItem).Name);
-                newWindow.Show();
+                var newWindow = new AddTagWindow(((DirectoryView)((MainWindow)sender).listBoxDirectories.SelectedItem).Name, ((FileSystemView)DataContext));
+                newWindow.ShowDialog();
+                listBoxTags.Items.Refresh();
             }
-
-            // MessageBox.Show("Custom Command Executed");
         }
 
         private void CanExecuteCustomCommand(object sender, CanExecuteRoutedEventArgs e)
