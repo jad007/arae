@@ -9,6 +9,7 @@ namespace Arae
     class Specializer
     {
         public string Name { get; set; }
+        public Brush Color { get; set; }
         public ImageSource Icon { get; set; }
     }
 }

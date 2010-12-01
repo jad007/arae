@@ -17,6 +17,7 @@ namespace Arae
         public FileView(string file)
         {
             Name = file;
+            Color = Brushes.Black;
             Icon = GetIcon(Path.GetExtension(file));
         }
 

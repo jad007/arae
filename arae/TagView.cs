@@ -28,6 +28,7 @@ namespace Arae
             Directories = new HashSet<string>();
             ProbableDirectories = new HashSet<string>();
             Subtags = new HashSet<TagView>();
+            Color = Brushes.Black;
         }
 
         public void AddFile(string file)
