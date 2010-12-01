@@ -81,5 +81,22 @@ namespace Arae
             listBoxDirectories.Items.Refresh();
             listBoxActiveTags.Items.Refresh();
         }
+
+        private void ActiveTags_MouseEnter(object sender, RoutedEventArgs e)
+        {
+            if ((Specializer)((Button)sender).DataContext is DirectoryView)
+            {
+                List<DirectoryView> directoriesToColor = ((FileSystemView)DataContext).GetSpecializersToRemove((Specializer)((Button)sender).DataContext);
+                foreach (DirectoryView directory in directoriesToColor)
+                {
+                    directory.Color = System.Windows.Media.Brushes.Red;
+                }
+            }
+            else
+            {
+
+            }
+            listBoxActiveTags.Items.Refresh();
+        }
     }
 }

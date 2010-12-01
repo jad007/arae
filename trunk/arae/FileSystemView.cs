@@ -13,7 +13,7 @@ namespace Arae
 
         public List<TagView> AllTags { get; private set; }
 
-        public List<Specializer> ActiveTags { get; private set; }        
+        public List<Specializer> ActiveTags { get; private set; }
 
         private string dir;
 
@@ -102,6 +102,23 @@ namespace Arae
             ComputeFiles();
         }
 
+        public List<DirectoryView> GetSpecializersToRemove(Specializer spec)
+        {
+            List<DirectoryView> directories = new List<DirectoryView>();
+            if (spec is DirectoryView)
+            {
+                int i = ActiveTags.IndexOf(spec);
+                while (i < ActiveTags.Count)
+                {
+                    if (ActiveTags[i] is DirectoryView)
+                        directories.Add((DirectoryView)ActiveTags[i]);
+                    else
+                        i++;
+                }
+            }
+            return directories;
+        }
+
         public void RemoveSpecializer(Specializer spec)
         {
             if (spec is DirectoryView)
@@ -110,7 +127,7 @@ namespace Arae
                 while (i < ActiveTags.Count)
                 {
                     if (ActiveTags[i] is DirectoryView)
-                        ActiveTags.RemoveAt(i);
+                       ActiveTags.RemoveAt(i);
                     else
                         i++;
                 }
