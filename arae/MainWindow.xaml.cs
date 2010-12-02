@@ -72,6 +72,7 @@ namespace Arae
                 ((FileSystemView)DataContext).AddSpecializer((Specializer)((ListBoxItem)sender).DataContext);
                 listBoxDirectories.Items.Refresh();
                 listBoxActiveTags.Items.Refresh();
+                listBoxTags.Items.Refresh();
             }
         }
 

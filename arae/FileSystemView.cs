@@ -11,9 +11,13 @@ namespace Arae
     {
         public List<Specializer> SuggestedTags { get; private set; }
 
-        public List<TagView> AllTags;
+        public List<Specializer> AllTags;
 
-        public List<TagView> getAllTags()
+        public List<Specializer> ActiveTags { get; private set; }
+
+        private string dir;
+
+        public List<Specializer> getAllTags()
         {
             return AllTags;
         }
@@ -24,22 +28,45 @@ namespace Arae
             {
                 if (InTag == spec)
                 {
-                    ((TagView)spec).AddFile(SelectedPath);
+                    if (isDirectory(SelectedPath))
+                    {
+                        //TODO: handle this
+                    }
+                    else if (isFile(SelectedPath))
+                    {
+                        ((TagView)spec).AddFile(SelectedPath);
+                    }
                 }
             }
         }
 
-        public void AddNewTag(string InNewTagName, string SelectedPath)
+        private bool isDirectory(string path)
         {
-            TagView newTag = new TagView { Name = InNewTagName };
-            newTag.AddFile(SelectedPath);
-            AllTags.Add(newTag);
-            SuggestedTags.Add(newTag);
+            return Path.GetExtension(path) == "";
         }
 
-        public List<Specializer> ActiveTags { get; private set; }
+        private bool isFile(string path)
+        {
+            return Path.GetExtension(path) != "";
+        }
 
-        private string dir;
+        public void AddNewTag(string InNewTagName, string SelectedPath)
+        {
+            if (isFile(SelectedPath))
+            {
+                TagView newTag = new TagView { Name = InNewTagName };
+                newTag.AddFile(SelectedPath);
+                AllTags.Add(newTag);
+                SuggestedTags.Add(newTag);
+            }
+            else if (isDirectory(SelectedPath))
+            {
+                DirectoryView newTag = new DirectoryView(SelectedPath);
+                AllTags.Add(newTag);
+                SuggestedTags.Add(newTag);
+            }
+        }
+
 
         public bool Matches(string file)
         {
@@ -92,8 +119,11 @@ namespace Arae
             {
                 foreach (var t in AllTags)
                 {
-                    if (t.ProbableDirectories.Contains(dir))
-                        Files.Add(t);
+                    if (t is TagView)
+                    {
+                        if (((TagView)t).ProbableDirectories.Contains(dir))
+                            Files.Add(t);
+                    }
                 }
                 en = FileSystem.AllFilesUnder(dir);
                 dn = FileSystem.AllDirectoriesUnder(dir);
@@ -175,7 +205,7 @@ namespace Arae
         private void RemoveActiveTag(Specializer ThisActiveTag)
         {
             ActiveTags.Remove(ThisActiveTag);
-            if (ThisActiveTag is TagView)
+            if (AllTags.Contains(ThisActiveTag))
             {
                 SuggestedTags.Add(ThisActiveTag);
             }
@@ -188,7 +218,7 @@ namespace Arae
             //SuggestedTags.Add(new TagGroup { Name = "Favorites" });
             //SuggestedTags.Add(new TagGroup { Name = "Locations" });
 
-            AllTags = new List<TagView>();
+            AllTags = new List<Specializer>();
             /*TagView t = new TagView { Name = "MyTag" };
             t.AddFile(@"C:\DOCS\userguide.pdf");
             t.AddFile(@"C:\DOCS\UserGuide.ico");
