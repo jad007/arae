@@ -21,6 +21,8 @@ namespace Arae
     {
         public static RoutedCommand CustomRoutedCommand = new RoutedCommand();
 
+        private FileSystemView fsv;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -28,25 +30,11 @@ namespace Arae
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            DataContext = new FileSystemView();
+            DataContext = fsv = new FileSystemView();
         }
-
-
 
         private void ExecutedCustomCommand(object sender, ExecutedRoutedEventArgs e)
         {
-            if (((MainWindow)sender).listBoxDirectories.SelectedItem is FileView)
-            {
-                var newWindow = new AddTagWindow(((FileView)((MainWindow)sender).listBoxDirectories.SelectedItem).Name, ((FileSystemView)DataContext));
-                newWindow.ShowDialog();
-                listBoxTags.Items.Refresh();
-            }
-            else if (((MainWindow)sender).listBoxDirectories.SelectedItem is DirectoryView)
-            {
-                var newWindow = new AddTagWindow(((DirectoryView)((MainWindow)sender).listBoxDirectories.SelectedItem).Name, ((FileSystemView)DataContext));
-                newWindow.ShowDialog();
-                listBoxTags.Items.Refresh();
-            }
         }
 
         private void CanExecuteCustomCommand(object sender, CanExecuteRoutedEventArgs e)
@@ -69,16 +57,17 @@ namespace Arae
         {
             if (!(((ListBoxItem)sender).DataContext is FileView))
             {
-                ((FileSystemView)DataContext).AddSpecializer((Specializer)((ListBoxItem)sender).DataContext);
+                fsv.AddSpecializer((Specializer)((ListBoxItem)sender).DataContext);
                 listBoxDirectories.Items.Refresh();
                 listBoxActiveTags.Items.Refresh();
                 listBoxTags.Items.Refresh();
             }
+            ResetTagView();
         }
 
         private void ActiveTag_Click(object sender, RoutedEventArgs e)
         {
-            ((FileSystemView)DataContext).RemoveSpecializer((Specializer)((Button)sender).DataContext);
+            fsv.RemoveSpecializer((Specializer)((Button)sender).DataContext);
             listBoxDirectories.Items.Refresh();
             listBoxActiveTags.Items.Refresh();
             listBoxTags.Items.Refresh();
@@ -88,7 +77,7 @@ namespace Arae
         {
             if ((Specializer)((Button)sender).DataContext is DirectoryView)
             {
-                List<DirectoryView> directoriesToColor = ((FileSystemView)DataContext).GetSpecializersToRemove((Specializer)((Button)sender).DataContext);
+                List<DirectoryView> directoriesToColor = fsv.GetSpecializersToRemove((Specializer)((Button)sender).DataContext);
                 foreach (DirectoryView directory in directoriesToColor)
                 {
                     directory.Color = System.Windows.Media.Brushes.Red;
@@ -99,6 +88,62 @@ namespace Arae
 
             }
             listBoxActiveTags.Items.Refresh();
+        }
+
+        private void ResetTagView()
+        {
+            listBoxSelectedItemTags.Items.Clear();
+            textBoxNewTag.Text = "Enter New Tag";
+        }
+
+        private void listBoxDirectories_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (((Control)sender).DataContext is FileView)
+                gridTags.DataContext = new FileTagView(fsv, ((Specializer)((Button)sender).DataContext).Name);
+            listBoxSelectedItemTags.Items.Refresh();
+            textBoxNewTag.Text = "Enter New Tag";
+        }
+
+        private void textBoxNewTag_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (textBoxNewTag.Text == "Enter New Tag")
+                textBoxNewTag.Text = "";
+        }
+
+        private void textBlockNewTag_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (textBoxNewTag.Text == "")
+                textBoxNewTag.Text = "Enter New Tag";
+        }
+
+        private void buttonAdd_Click(object sender, RoutedEventArgs e)
+        {
+            string name = null;
+            if (listBoxDirectories.SelectedItem is FileView)
+            {
+                name = ((FileView)listBoxDirectories.SelectedItem).Name;
+                fsv.AddTagToFile(textBoxNewTag.Text, name);
+            }
+            else if(listBoxDirectories.SelectedItem is DirectoryView)
+            {
+                name =  ((DirectoryView)listBoxDirectories.SelectedItem).Name;
+                fsv.AddTagToDirectory(textBoxNewTag.Text,name);
+            }
+            if (name != null)
+                listBoxSelectedItemTags.Items.Add(name);
+            fsv.ComputeFiles();
+            listBoxDirectories.Items.Refresh();
+        }
+
+        private void textBlockNewTag_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (buttonAdd == null)
+                return;
+
+            if (textBoxNewTag.Text != "" && textBoxNewTag.Text != "Enter New Tag")
+                buttonAdd.IsEnabled = true;
+            else
+                buttonAdd.IsEnabled = false;
         }
     }
 }
