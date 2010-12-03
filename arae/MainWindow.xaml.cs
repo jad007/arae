@@ -61,13 +61,19 @@ namespace Arae
 
         private void Item_DoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (!(((ListBoxItem)sender).DataContext is FileView))
+            if (((ListBoxItem)sender).DataContext is FileView)
+            {
+                //System.Console.WriteLine(((FileView)((ListBoxItem)sender).DataContext).Name);
+                FileSystem.RunFile(((FileView)((ListBoxItem)sender).DataContext).Name);
+            }
+            else
             {
                 fsv.AddSpecializer((Specializer)((ListBoxItem)sender).DataContext);
                 listBoxDirectories.Items.Refresh();
                 listBoxActiveTags.Items.Refresh();
                 listBoxTags.Items.Refresh();
             }
+
             ResetTagView();
         }
 
