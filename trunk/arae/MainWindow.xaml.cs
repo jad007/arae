@@ -57,14 +57,12 @@ namespace Arae
             }
         }
 
-
-
         private void Item_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (((ListBoxItem)sender).DataContext is FileView)
             {
                 //System.Console.WriteLine(((FileView)((ListBoxItem)sender).DataContext).Name);
-                FileSystem.RunFile(((FileView)((ListBoxItem)sender).DataContext).Name);
+                FileSystem.RunFile(((FileView)((ListBoxItem)sender).DataContext).Path);
             }
             else
             {
