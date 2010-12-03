@@ -8,23 +8,15 @@ namespace Arae
     class AddTagView
     {
         public string SelectedPath {get; private set;}
-        public List<Specializer> AllTags { get; private set; }
-        public FileSystemView fileSystemView { get; private set; }
-        public AddTagView(string NewPath, FileSystemView inFileSystemView)
-        {
-            SelectedPath = NewPath;
-            fileSystemView = inFileSystemView;
-            AllTags = fileSystemView.AllTags;
-        }
+        public bool IsFile { get; private set; }
+        public List<TagView> Tags { get; private set; }
+        public FileSystemView FileSystemView { get; private set; }
 
-        public void AddExistingTag(Specializer InTag)
+        public AddTagView(string path, bool isFile, FileSystemView fileSystemView)
         {
-            fileSystemView.AddExistingTag(InTag, SelectedPath);
-        }
-
-        public void AddNewTag(string InNewTagName)
-        {
-            fileSystemView.AddNewTag(InNewTagName, SelectedPath);
+            SelectedPath = path;
+            IsFile = isFile;
+            this.FileSystemView = fileSystemView;
         }
     }
 }

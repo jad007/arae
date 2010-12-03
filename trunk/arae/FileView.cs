@@ -52,8 +52,6 @@ namespace Arae
                     return null;
                 }
             }
-
-
         }
 
         public override bool Equals(object obj)
