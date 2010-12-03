@@ -168,7 +168,14 @@ namespace Arae
 
         private void AddActiveTag(Specializer newActiveTag)
         {
-            SuggestedTags.Remove(newActiveTag);
+            foreach (Specializer tag in SuggestedTags)
+            {
+                if (tag.Name == newActiveTag.Name)
+                {
+                    SuggestedTags.Remove(tag);
+                    break;
+                }
+            }
             ActiveTags.Add(newActiveTag);
         }
 
@@ -186,6 +193,8 @@ namespace Arae
             SuggestedTags = new List<Specializer>();
 
             AllTags = new SerializableDictionary<string, TagView>();
+
+            SuggestedTags.AddRange(AllTags.Values);
 
             ActiveTags = new List<Specializer>();
 
