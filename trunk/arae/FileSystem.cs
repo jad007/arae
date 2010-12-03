@@ -15,7 +15,7 @@ namespace Arae
 
         public static void RunFile(string file)
         {
-            StringBuilder res = new StringBuilder();
+            StringBuilder res = new StringBuilder(1024);
             FindExecutable(file, null, res);
             Process.Start(res.ToString(), file);
         }
