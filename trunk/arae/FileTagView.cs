@@ -27,5 +27,10 @@ namespace Arae
         {
             Tags.Add(tagView);
         }
+
+        public void RemoveTag(TagView tagView)
+        {
+            Tags.Remove(tagView);
+        }
     }
 }

@@ -10,6 +10,7 @@ namespace Arae
 {
     static class FileSystem
     {
+        [DllImport("Shell32.dll")]
         private static extern IntPtr FindExecutable(string lpFile, string lpDirectory, [Out] StringBuilder lpResult);
 
         public static void RunFile(string file)

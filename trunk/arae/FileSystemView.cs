@@ -223,5 +223,11 @@ namespace Arae
                 return (FileSystemView)new XmlSerializer(typeof(FileSystemView)).Deserialize(str);
             }
         }
+
+        public void RemoveTagFromFile(string tag, string file)
+        {
+            TagView t = AllTags[tag];
+            t.RemoveFile(file);
+        }
     }
 }
