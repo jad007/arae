@@ -3,11 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace Arae
 {
     static class FileSystem
     {
+        private static extern IntPtr FindExecutable(string lpFile, string lpDirectory, [Out] StringBuilder lpResult);
+
+        public void RunFile(string file)
+        {
+            StringBuilder res = new StringBuilder();
+            FindExecutable(file, null, res);
+            Process.Start(res.ToString(), file);
+        }
+
         public static IEnumerable<string> AllFilesUnder(string dir)
         {
             Queue<DirectoryInfo> dirs = new Queue<DirectoryInfo>();
