@@ -45,7 +45,7 @@ namespace Arae
 
         private void CanExecuteCustomCommand(object sender, CanExecuteRoutedEventArgs e)
         {
-            Control target = e.Source as Control;
+            /*Control target = e.Source as Control;
 
             if (target != null)
             {
@@ -54,7 +54,8 @@ namespace Arae
             else
             {
                 e.CanExecute = false;
-            }
+            }*/
+            e.CanExecute = false;
         }
 
         private void Item_DoubleClick(object sender, MouseButtonEventArgs e)
@@ -145,6 +146,7 @@ namespace Arae
             }
             fsv.ComputeFiles();
             listBoxDirectories.Items.Refresh();
+            listBoxTags.Items.Refresh();
         }
 
         private void textBlockNewTag_TextChanged(object sender, TextChangedEventArgs e)
