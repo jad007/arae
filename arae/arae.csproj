@@ -62,6 +62,7 @@
     <Compile Include="FileTagView.cs" />
     <Compile Include="FindIcon.cs" />
     <Compile Include="DirectoryView.cs" />
+    <Compile Include="SerializableDictionary.cs" />
     <Compile Include="Specializer.cs" />
     <Compile Include="TagView.cs" />
     <Compile Include="TagGroup.cs" />

@@ -13,13 +13,13 @@ namespace Arae
     {
         private static ImageSource image = new BitmapImage(new Uri("pack://application:,,,/Tag.png"));
 
-        public HashSet<string> Files { get; private set; }
+        public HashSet<string> Files { get; set; }
 
-        public HashSet<string> Directories { get; private set; }
+        public HashSet<string> Directories { get; set; }
 
-        public HashSet<string> ProbableDirectories { get; private set; }
+        public HashSet<string> ProbableDirectories { get; set; }
 
-        public HashSet<TagView> Subtags { get; private set; }
+        public HashSet<TagView> Subtags { get; set; }
 
         public TagView()
         {

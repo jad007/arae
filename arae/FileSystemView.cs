@@ -4,16 +4,19 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Xml.Serialization;
+using System.Xml;
 
 namespace Arae
 {
+    [XmlRootAttribute]
     public class FileSystemView
     {
-        public List<Specializer> SuggestedTags { get; private set; }
+        public List<Specializer> SuggestedTags { get; set; }
 
-        public Dictionary<string, TagView> AllTags;
+        public SerializableDictionary<string, TagView> AllTags { get; set; }
 
-        public List<Specializer> ActiveTags { get; private set; }
+        [XmlIgnore]
+        public List<Specializer> ActiveTags { get; set; }
 
         private string dir;
 
@@ -160,6 +163,7 @@ namespace Arae
             ComputeFiles();
         }
 
+        [XmlIgnore]
         public List<Specializer> Files { get; private set; }
 
         private void AddActiveTag(Specializer newActiveTag)
@@ -180,31 +184,14 @@ namespace Arae
         public FileSystemView()
         {
             SuggestedTags = new List<Specializer>();
-            //SuggestedTags.Add(new TagGroup { Name = "Time" });
-            //SuggestedTags.Add(new TagGroup { Name = "Favorites" });
-            //SuggestedTags.Add(new TagGroup { Name = "Locations" });
 
-            AllTags = new Dictionary<string, TagView>();
-            /*TagView t = new TagView { Name = "MyTag" };
-            t.AddFile(@"C:\DOCS\userguide.pdf");
-            t.AddFile(@"C:\DOCS\UserGuide.ico");
-            AllTags.Add(t);
-            SuggestedTags.Add(t);
-
-            TagView root = new TagView { Name = "Root Directory" };
-            root.AddDirectory(@"C:\");
-            AllTags.Add(root);
-            SuggestedTags.Add(root);*/
+            AllTags = new SerializableDictionary<string, TagView>();
 
             ActiveTags = new List<Specializer>();
 
-            ActiveTags.Add(new DirectoryView(@"C:\"));
-            //ActiveTags.Add(t);
-            //AddActiveTag(root);
+            ActiveTags.Add(new DirectoryView("C:\\"));
 
             Files = new List<Specializer>();
-
-            ComputeFiles();
         }
 
         public List<TagView> TagsOnFile(string file)
@@ -216,6 +203,25 @@ namespace Arae
                     tags.Add(t);
             }
             return tags;
+        }
+
+        public void Save(string file)
+        {
+            using(Stream str = File.Open(file, FileMode.Create))
+            {
+                var xml = new XmlTextWriter(str, Encoding.UTF8);
+                //xml.Settings.Indent = true;
+                var ser = new XmlSerializer(typeof(FileSystemView));
+                ser.Serialize(xml, this);
+            }
+        }
+
+        public static FileSystemView Load(string file)
+        {
+            using (Stream str = File.Open(file, FileMode.Open))
+            {
+                return (FileSystemView)new XmlSerializer(typeof(FileSystemView)).Deserialize(str);
+            }
         }
     }
 }
