@@ -12,7 +12,7 @@ namespace Arae
     {
         private static extern IntPtr FindExecutable(string lpFile, string lpDirectory, [Out] StringBuilder lpResult);
 
-        public void RunFile(string file)
+        public static void RunFile(string file)
         {
             StringBuilder res = new StringBuilder();
             FindExecutable(file, null, res);
