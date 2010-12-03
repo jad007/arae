@@ -68,5 +68,10 @@ namespace Arae
                     yield return dd;
             }
         }
+
+        public void RemoveFile(string file)
+        {
+            Files.Remove(file);
+        }
     }
 }

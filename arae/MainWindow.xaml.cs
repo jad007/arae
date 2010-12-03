@@ -98,7 +98,6 @@ namespace Arae
 
         private void ResetTagView()
         {
-            listBoxSelectedItemTags.Items.Clear();
             textBoxNewTag.Text = "Enter New Tag";
         }
 
@@ -158,6 +157,13 @@ namespace Arae
         private void Window_Closed(object sender, EventArgs e)
         {
             fsv.Save("tags.xml");
+        }
+
+        private void buttonRemove_Click(object sender, RoutedEventArgs e)
+        {
+            fsv.RemoveTagFromFile(((TagView)((Control)sender).DataContext).Name, ((FileView)listBoxDirectories.SelectedItem).Name);
+            ((FileTagView)listBoxSelectedItemTags.DataContext).RemoveTag((TagView)((Control)sender).DataContext);
+            listBoxSelectedItemTags.Items.Refresh();
         }
     }
 }
