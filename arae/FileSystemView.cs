@@ -130,10 +130,9 @@ namespace Arae
                 {
                     if (string.IsNullOrEmpty(dd))
                         continue;
-                    if(path.Length > 0)
-                        path += '\\';
                     path += dd;
-                    AddActiveTag(new DirectoryView(dd, path));
+                    path += '\\';
+                    AddActiveTag(new DirectoryView(dd + '\\', path));
                 }
                 ComputeFiles();
             }
@@ -220,7 +219,7 @@ namespace Arae
 
             ActiveTags = new List<Specializer>();
 
-            ActiveTags.Add(new DirectoryView(new DirectoryInfo("C:\\")));
+            ActiveTags.Add(new DirectoryView("C:\\", "C:\\"));
 
             Files = new List<Specializer>();
         }
