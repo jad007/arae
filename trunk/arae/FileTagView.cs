@@ -31,6 +31,7 @@ namespace Arae
         public void RemoveTag(TagView tagView)
         {
             Tags.Remove(tagView);
+            System.Console.WriteLine("HERE");
         }
     }
 }

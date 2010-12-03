@@ -166,20 +166,23 @@ namespace Arae
 
         public void RemoveSpecializer(Specializer spec)
         {
-            if (spec is DirectoryView)
+            if (ActiveTags.Count > 1)
             {
-                int i = ActiveTags.IndexOf(spec);
-                while (i < ActiveTags.Count)
+                if (spec is DirectoryView)
                 {
-                    if (ActiveTags[i] is DirectoryView)
-                       RemoveActiveTag(ActiveTags[i]);
-                    else
-                        i++;
+                    int i = ActiveTags.IndexOf(spec);
+                    while (i < ActiveTags.Count)
+                    {
+                        if (ActiveTags[i] is DirectoryView)
+                            RemoveActiveTag(ActiveTags[i]);
+                        else
+                            i++;
+                    }
                 }
+                else
+                    RemoveActiveTag(spec);
+                ComputeFiles();
             }
-            else
-                RemoveActiveTag(spec);
-            ComputeFiles();
         }
 
         [XmlIgnore]
