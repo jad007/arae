@@ -100,7 +100,7 @@ namespace Arae
             foreach (var d in dn)
             {
                 if(MatchesDirectory(d))
-                    Files.Add(new DirectoryView(d));
+                    Files.Add(new DirectoryView(d.Substring(dir.Length), d));
                 if (++count >= maxCount)
                 {
                     break;
@@ -110,7 +110,7 @@ namespace Arae
             foreach (var file in en)
             {
                 if(Matches(file))
-                    Files.Add(new FileView(file));
+                    Files.Add(new FileView(file.Substring(dir.Length), file));
                 if (++count >= maxCount)
                 {
                     break;
@@ -121,8 +121,27 @@ namespace Arae
 
         public void AddSpecializer(Specializer spec)
         {
-            AddActiveTag(spec);
-            ComputeFiles();
+            var d = spec as DirectoryView;
+            if (d != null)
+            {
+                string comp = d.Path.Substring(dir.Length);
+                string path = "";
+                foreach (var dd in comp.Split('\\'))
+                {
+                    if (string.IsNullOrEmpty(dd))
+                        continue;
+                    if(path.Length > 0)
+                        path += '\\';
+                    path += dd;
+                    AddActiveTag(new DirectoryView(dd, path));
+                }
+                ComputeFiles();
+            }
+            else
+            {
+                AddActiveTag(spec);
+                ComputeFiles();
+            }
         }
 
         public List<DirectoryView> GetSpecializersToRemove(Specializer spec)
@@ -198,7 +217,7 @@ namespace Arae
 
             ActiveTags = new List<Specializer>();
 
-            ActiveTags.Add(new DirectoryView("C:\\"));
+            ActiveTags.Add(new DirectoryView(new DirectoryInfo("C:\\")));
 
             Files = new List<Specializer>();
         }

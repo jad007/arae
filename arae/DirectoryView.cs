@@ -12,15 +12,19 @@ namespace Arae
     {
         private static ImageSource image = new BitmapImage(new Uri("pack://application:,,,/Folder.png"));
 
-        public DirectoryView(string name)
+        public string Path { get; set; }
+
+        public DirectoryView(string name, string path)
         {
             Name = name;
+            Path = path;
             Icon = image;
         }
 
         public DirectoryView(DirectoryInfo d)
         {
             Name = d.Name;
+            Path = d.FullName;
             Icon = image;
         }
 

@@ -14,12 +14,15 @@ namespace Arae
     {
         private static Dictionary<string, ImageSource> cache = new Dictionary<string, ImageSource>();
 
-        public FileView(string file)
+        public FileView(string name, string path)
         {
-            Name = file;
+            Name = name;
+            Path = path;
             Color = Brushes.Black;
-            Icon = GetIcon(Path.GetExtension(file));
+            Icon = GetIcon(System.IO.Path.GetExtension(path));
         }
+
+        public string Path { get; private set; }
 
         private static ImageSource GetIcon(string ext)
         {
