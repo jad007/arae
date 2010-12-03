@@ -104,8 +104,8 @@ namespace Arae
 
         private void listBoxDirectories_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (((Control)sender).DataContext is FileView)
-                gridTags.DataContext = new FileTagView(fsv, ((Specializer)((Button)sender).DataContext).Name);
+            if (listBoxDirectories.SelectedItem is FileView)
+                gridTags.DataContext = new FileTagView(fsv, ((Specializer)listBoxDirectories.SelectedItem).Name);
             listBoxSelectedItemTags.Items.Refresh();
             textBoxNewTag.Text = "Enter New Tag";
         }
@@ -133,10 +133,13 @@ namespace Arae
             else if(listBoxDirectories.SelectedItem is DirectoryView)
             {
                 name =  ((DirectoryView)listBoxDirectories.SelectedItem).Name;
-                fsv.AddTagToDirectory(textBoxNewTag.Text,name);
+                fsv.AddTagToDirectory(textBoxNewTag.Text, name);
             }
             if (name != null)
-                listBoxSelectedItemTags.Items.Add(name);
+            {
+                ((FileTagView)listBoxSelectedItemTags.DataContext).AddTag(fsv.AllTags[textBoxNewTag.Text]);
+                listBoxSelectedItemTags.Items.Refresh();
+            }
             fsv.ComputeFiles();
             listBoxDirectories.Items.Refresh();
         }
@@ -154,7 +157,7 @@ namespace Arae
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            fsv.Save(@"tags.xml");
+            fsv.Save("tags.xml");
         }
     }
 }
