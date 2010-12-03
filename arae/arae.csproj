@@ -65,7 +65,6 @@
     <Compile Include="SerializableDictionary.cs" />
     <Compile Include="Specializer.cs" />
     <Compile Include="TagView.cs" />
-    <Compile Include="TagGroup.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
