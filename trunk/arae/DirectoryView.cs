@@ -15,14 +15,17 @@ namespace Arae
         public DirectoryView(string name)
         {
             Name = name;
-            Color = Brushes.Black;
             Icon = image;
         }
 
         public DirectoryView(DirectoryInfo d)
         {
             Name = d.Name;
-            Color = Brushes.Black;
+            Icon = image;
+        }
+
+        public DirectoryView()
+        {
             Icon = image;
         }
     }

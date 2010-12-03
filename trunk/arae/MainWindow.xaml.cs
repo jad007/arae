@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace Arae
 {
@@ -30,7 +31,12 @@ namespace Arae
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            DataContext = fsv = new FileSystemView();
+            if (File.Exists("tags.xml"))
+                DataContext = fsv = FileSystemView.Load("tags.xml");
+            else
+                DataContext = fsv = new FileSystemView();
+
+            fsv.ComputeFiles();
         }
 
         private void ExecutedCustomCommand(object sender, ExecutedRoutedEventArgs e)
@@ -144,6 +150,11 @@ namespace Arae
                 buttonAdd.IsEnabled = true;
             else
                 buttonAdd.IsEnabled = false;
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            fsv.Save(@"tags.xml");
         }
     }
 }
