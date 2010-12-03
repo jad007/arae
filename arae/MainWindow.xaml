@@ -55,7 +55,11 @@
             <Grid Width="143" DockPanel.Dock="Right" Name="gridTags">
                 <TextBlock Text="Tags" Margin="0,0,0,253" Width="128" TextAlignment="Center"/>
                 <ListBox Margin="0,27,0,34" ItemsSource="{Binding Tags}" Name="listBoxSelectedItemTags">
-                    
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
                 </ListBox>
                 <TextBox Height="22" Margin="6,0,45,6" Name="textBoxNewTag" Text="Enter New Tag" VerticalAlignment="Bottom" GotFocus="textBoxNewTag_GotFocus" LostFocus="textBlockNewTag_LostFocus" TextChanged="textBlockNewTag_TextChanged" />
                 <Button Content="Add" Name="buttonAdd" HorizontalAlignment="Right" Width="33" Height="22" VerticalAlignment="Bottom" Click="buttonAdd_Click" Margin="0,0,6,6" IsEnabled="False" />

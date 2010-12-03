@@ -17,5 +17,15 @@ namespace Arae
             File = file;
             Tags = fs.TagsOnFile(file);
         }
+
+        public void Refresh()
+        {
+            Tags = FileSystemView.TagsOnFile(File);
+        }
+
+        public void AddTag(TagView tagView)
+        {
+            Tags.Add(tagView);
+        }
     }
 }
