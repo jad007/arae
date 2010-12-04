@@ -28,7 +28,14 @@ namespace Arae
                 AllTags.Add(newTag.Name, newTag);
                 SuggestedTags.Add(newTag);
             }
-            AllTags[tag].AddFile(file);
+            var tags = TagsOnFile(file);
+            TagView tt = AllTags[tag];
+            foreach (var ttt in tags)
+            {
+                tt.Subtags.Add(ttt);
+                ttt.Subtags.Add(tt);
+            }
+            tt.AddFile(file);
         }
 
         public void AddTagToDirectory(string tag, string file)
@@ -86,6 +93,23 @@ namespace Arae
             {
                 en = ((TagView)nonDir).GetPossibleFiles();
                 dn = ((TagView)nonDir).ProbableDirectories;
+                foreach (var t in ((TagView)nonDir).Subtags)
+                {
+                    bool accept = true;
+                    foreach (Specializer tag in ActiveTags)
+                    {
+                        if (tag is TagView)
+                        {
+                            if (!((TagView)tag).Subtags.Contains(t))
+                            {
+                                accept = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (accept)
+                        Files.Add(t);
+                }
             }
             else
             {

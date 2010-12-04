@@ -109,7 +109,7 @@ namespace Arae
         private void listBoxDirectories_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (listBoxDirectories.SelectedItem is FileView)
-                gridTags.DataContext = new FileTagView(fsv, ((Specializer)listBoxDirectories.SelectedItem).Name);
+                gridTags.DataContext = new FileTagView(fsv, ((FileView)listBoxDirectories.SelectedItem).Path);
             listBoxSelectedItemTags.Items.Refresh();
             textBoxNewTag.Text = "Enter New Tag";
         }
@@ -131,12 +131,12 @@ namespace Arae
             string name = null;
             if (listBoxDirectories.SelectedItem is FileView)
             {
-                name = ((FileView)listBoxDirectories.SelectedItem).Name;
+                name = ((FileView)listBoxDirectories.SelectedItem).Path;
                 fsv.AddTagToFile(textBoxNewTag.Text, name);
             }
             else if(listBoxDirectories.SelectedItem is DirectoryView)
             {
-                name =  ((DirectoryView)listBoxDirectories.SelectedItem).Name;
+                name = ((DirectoryView)listBoxDirectories.SelectedItem).Path;
                 fsv.AddTagToDirectory(textBoxNewTag.Text, name);
             }
             if (name != null)
