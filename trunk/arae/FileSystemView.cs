@@ -263,12 +263,17 @@ namespace Arae
 
         public void Save(string file)
         {
-            using(Stream str = File.Open(file, FileMode.Create))
+            try
             {
-                var xml = new XmlTextWriter(str, Encoding.UTF8);
-                //xml.Settings.Indent = true;
-                var ser = new XmlSerializer(typeof(FileSystemView));
-                ser.Serialize(xml, this);
+                using (Stream str = File.Open(file, FileMode.Create))
+                {
+                    var xml = new XmlTextWriter(str, Encoding.UTF8);
+                    var ser = new XmlSerializer(typeof(FileSystemView));
+                    ser.Serialize(xml, this);
+                }
+            }
+            catch (Exception e)
+            {
             }
         }
 
