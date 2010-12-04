@@ -87,6 +87,8 @@ namespace Arae
                 else if(tag is TagView && nonDir == null)
                     nonDir = tag;
             }
+            if (!dir.EndsWith("\\"))
+                dir += '\\';
             IEnumerable<string> en;
             IEnumerable<string> dn;
             if (nonDir != null)

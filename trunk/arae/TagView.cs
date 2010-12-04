@@ -42,7 +42,10 @@ namespace Arae
             file = Path.GetDirectoryName(file);
             while (!String.IsNullOrEmpty(file))
             {
-                ProbableDirectories.Add(file);
+                string dir = file;
+                if (!dir.EndsWith("\\"))
+                    dir += '\\';
+                ProbableDirectories.Add(Path.GetFullPath(dir));
                 file = Path.GetDirectoryName(file);
             }
         }

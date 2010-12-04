@@ -171,5 +171,13 @@ namespace Arae
             ((FileTagView)listBoxSelectedItemTags.DataContext).RemoveTag((TagView)((Control)sender).DataContext);
             listBoxSelectedItemTags.Items.Refresh();
         }
+
+        private void textBoxNewTag_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                buttonAdd_Click(null, null);
+            }
+        }
     }
 }
