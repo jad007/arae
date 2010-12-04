@@ -75,7 +75,7 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <TextBox Height="22" Margin="6,0,45,6" Name="textBoxNewTag" Text="Enter New Tag" VerticalAlignment="Bottom" GotFocus="textBoxNewTag_GotFocus" LostFocus="textBlockNewTag_LostFocus" TextChanged="textBlockNewTag_TextChanged" />
+                <TextBox Height="22" Margin="6,0,45,6" Name="textBoxNewTag" Text="Enter New Tag" VerticalAlignment="Bottom" GotFocus="textBoxNewTag_GotFocus" LostFocus="textBlockNewTag_LostFocus" TextChanged="textBlockNewTag_TextChanged" KeyDown="textBoxNewTag_KeyDown" />
                 <Button Content="Add" Name="buttonAdd" HorizontalAlignment="Right" Width="33" Height="22" VerticalAlignment="Bottom" Click="buttonAdd_Click" Margin="0,0,6,6" IsEnabled="False" />
             </Grid>
             <ListBox ItemsSource="{Binding Files}" Name="listBoxDirectories" ItemContainerStyle="{StaticResource itemstyle}" SelectionChanged="listBoxDirectories_SelectionChanged">
